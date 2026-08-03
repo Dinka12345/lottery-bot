@@ -1,3 +1,4 @@
+
 from telegram import (
     Update,
     InlineKeyboardButton,
@@ -20,6 +21,19 @@ from keyboards import number_keyboard, play_again_keyboard
 import game_state
 import random
 import asyncio
+
+from flask import Flask
+import threading
+
+# Keep Render service alive
+web_app = Flask(__name__)
+
+@web_app.route('/')
+def home():
+    return "Bot is running!"
+
+def run_web():
+    web_app.run(host='0.0.0.0', port=10000)
 
 
 TOKEN = "8861601405:AAEwVqVS38Klc6PamK9P8plTVIGwBac9ZNM"
@@ -796,4 +810,8 @@ print("🎰 Lottery Bot with Admin Deposit Approval is running...")
 loop = asyncio.new_event_loop()
 asyncio.set_event_loop(loop)
 
+# Start web server in background
+threading.Thread(target=run_web, daemon=True).start()
+
 app.run_polling()
+
