@@ -792,4 +792,8 @@ app.add_handler(
 
 print("🎰 Lottery Bot with Admin Deposit Approval is running...")
 
+# FIX FOR PYTHON 3.14 ON RENDER
+loop = asyncio.new_event_loop()
+asyncio.set_event_loop(loop)
+
 app.run_polling()
