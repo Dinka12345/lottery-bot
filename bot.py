@@ -1192,9 +1192,11 @@ app.add_handler(
 )
 
 
-print(
-    "🎰 Lottery Bot running as Render Background Worker"
-)
+import asyncio
 
+print("🎰 Lottery Bot running on Render")
 
-app.run_polling()
+if __name__ == "__main__":
+    asyncio.run(app.initialize())
+    asyncio.run(app.start())
+    asyncio.run(app.updater.start_polling())
