@@ -1192,9 +1192,7 @@ app.add_handler(
 )
 
 
-print(
-    "🎰 Lottery Bot running as Render Background Worker"
-)
+print("🎰 Lottery Bot running on Render")
 
-
-app.run_polling()
+if __name__ == "__main__":
+    app.run_polling()
