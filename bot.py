@@ -1193,7 +1193,7 @@ app.add_handler(
 
 
 print(
-    "🎰 Lottery Bot running as Render Background Worker"
+    "🎰 Lottery Bot running on Render"
 )
 
 
