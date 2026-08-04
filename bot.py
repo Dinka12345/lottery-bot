@@ -1197,4 +1197,12 @@ print(
 )
 
 
-app.run_polling()
+if __name__ == "__main__":
+    print("🎰 Lottery Bot running as Render Background Worker")
+
+    app = Application.builder().token(TOKEN).build()
+
+    # Keep all your handlers here
+    # app.add_handler(...)
+
+    app.run_polling()
