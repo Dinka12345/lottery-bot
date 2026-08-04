@@ -28,7 +28,7 @@ import os
 # BOT SETTINGS
 # ==============================
 
-TOKEN = os.getenv("BOT_TOKEN")
+TOKEN = os.getenv("8808524682:AAECcDp6TR6p3pO0cUYJ04c_WztwPh4Gstk")
 
 ROUND_TIME = 60
 DRAW_COUNT = 10
@@ -1157,7 +1157,7 @@ async def post_init(application: Application):
 
 app = (
     Application.builder()
-    .token(TOKEN)
+    .token("8861601405:AAEwVqVS38Klc6PamK9P8plTVIGwBac9ZNM")
     .post_init(post_init)
     .build()
 )
