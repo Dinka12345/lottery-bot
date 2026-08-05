@@ -1206,5 +1206,17 @@ app.add_handler(
 # ==============================
 
 if __name__ == "__main__":
+    import asyncio
+
+async def main():
     print("🎰 Lottery Bot running")
-    app.run_polling()
+    await app.initialize()
+    await app.start()
+    await app.updater.start_polling()
+
+    # keep the bot alive forever
+    while True:
+        await asyncio.sleep(3600)
+
+if __name__ == "__main__":
+    asyncio.run(main())
