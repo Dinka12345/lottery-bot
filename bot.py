@@ -808,8 +808,7 @@ async def update_all_boards():
 
         except Exception as e:
             print(f"Board update error: {e}")
-            
-            Part 3/3 — Paste this as the last part of your file
+
 
 # ==============================
 # LOTTERY LOOP
