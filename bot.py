@@ -37,7 +37,7 @@ def home():
 # BOT SETTINGS
 # ==============================
 
-TOKEN = os.getenv("BOT_TOKEN")
+TOKEN = os.getenv("8808524682:AAECcDp6TR6p3pO0cUYJ04c_WztwPh4Gstk")
 
 ROUND_TIME = 60
 DRAW_COUNT = 10
@@ -1166,7 +1166,7 @@ async def post_init(application: Application):
 
 app = (
     Application.builder()
-    .token(TOKEN)
+    .token("8808524682:AAECcDp6TR6p3pO0cUYJ04c_WztwPh4Gstk")
     .post_init(post_init)
     .build()
 )
@@ -1206,14 +1206,5 @@ app.add_handler(
 # ==============================
 
 if __name__ == "__main__":
-
-    print("🎰 Lottery Bot running on Render Web Service")
-
-    # Start Telegram bot in background
-    asyncio.get_event_loop().create_task(app.initialize())
-    asyncio.get_event_loop().create_task(app.start())
-    asyncio.get_event_loop().create_task(app.updater.start_polling())
-
-    # Run Flask web server
-    port = int(os.environ.get("PORT", 10000))
-    web.run(host="0.0.0.0", port=port)
+    print("🎰 Lottery Bot running")
+    app.run_polling()
