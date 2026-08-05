@@ -994,7 +994,7 @@ def run_web():
 
 if __name__ == "__main__":
 
-    print("🎰 Lottery Bot running on Render")
+    print("🎰 Starting Telegram Bot...")
 
     threading.Thread(
         target=run_web,
