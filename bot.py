@@ -963,33 +963,18 @@ app.add_handler(
 # MAIN
 # ==============================
 
-async def main():
-
-    print("🎰 Lottery Bot running")
-
-    await app.initialize()
-
-    await app.start()
-
-    await app.updater.start_polling()
-
-    # keep bot alive forever
-    while True:
-        await asyncio.sleep(3600)
-
-
 # ==============================
-# RENDER WEB SERVER
+# START BOT ON RENDER
 # ==============================
-from flask import Flask
-import threading
-import os
 
 import threading
 
 def run_web():
     port = int(os.environ.get("PORT", 10000))
-    web.run(host="0.0.0.0", port=port)
+    web.run(
+        host="0.0.0.0",
+        port=port
+    )
 
 
 if __name__ == "__main__":
@@ -1001,5 +986,6 @@ if __name__ == "__main__":
         daemon=True
     ).start()
 
-    app.run_polling()
-
+    asyncio.run(
+        app.run_polling()
+    )
