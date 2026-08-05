@@ -42,6 +42,8 @@ def home():
 
 TOKEN = os.getenv("BOT_TOKEN")
 
+application = Application.builder().token(TOKEN).build()
+
 ROUND_TIME = 60
 DRAW_COUNT = 10
 TICKET_COST = 5
