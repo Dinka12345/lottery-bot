@@ -1003,10 +1003,11 @@ threading.Thread(target=run_web, daemon=True).start()
 import asyncio
 
 if __name__ == '__main__':
-    print("🎰 Lottery Bot running on Render Web Service")
+    print("🎰 Lottery Bot running on Render")
 
-    loop = asyncio.new_event_loop()
-    asyncio.set_event_loop(loop)
+    # Start Flask keep-alive server
+    keep_alive()
 
-    application.run_polling(drop_pending_updates=True)
+    # Start Telegram bot
+    application.run_polling()
 
