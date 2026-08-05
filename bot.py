@@ -1005,9 +1005,5 @@ import asyncio
 if __name__ == '__main__':
     print("🎰 Lottery Bot running on Render")
 
-    # Start Flask keep-alive server
-    keep_alive()
-
-    # Start Telegram bot
     application.run_polling()
 
