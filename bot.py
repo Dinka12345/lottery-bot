@@ -22,8 +22,17 @@ import game_state
 import random
 import asyncio
 import os
+from flask import Flask
 
+# ==============================
+# FLASK WEB SERVER
+# ==============================
 
+web = Flask(__name__)
+
+@web.route("/")
+def home():
+    return "Lottery Bot is running!"
 # ==============================
 # BOT SETTINGS
 # ==============================
@@ -1192,9 +1201,19 @@ app.add_handler(
 )
 
 
-print(
-    "🎰 Lottery Bot running as Render Background Worker"
-)
+# ==============================
+# MAIN
+# ==============================
 
+if __name__ == "__main__":
 
-app.run_polling()
+    print("🎰 Lottery Bot running on Render Web Service")
+
+    # Start Telegram bot in background
+    asyncio.get_event_loop().create_task(app.initialize())
+    asyncio.get_event_loop().create_task(app.start())
+    asyncio.get_event_loop().create_task(app.updater.start_polling())
+
+    # Run Flask web server
+    port = int(os.environ.get("PORT", 10000))
+    web.run(host="0.0.0.0", port=port)
