@@ -986,6 +986,4 @@ if __name__ == "__main__":
         daemon=True
     ).start()
 
-    asyncio.run(
-        app.run_polling()
-    )
+    app.run_polling()
