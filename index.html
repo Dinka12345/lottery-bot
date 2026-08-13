@@ -31,6 +31,7 @@
       flex-direction: column;
     }
 
+    /* Page visibility utility */
     .hidden {
       display: none !important;
     }
@@ -143,6 +144,10 @@
       align-items: center;
       justify-content: center;
       gap: 8px;
+    }
+
+    .cta-btn:active {
+      opacity: 0.85;
     }
 
     .sub-caption {
@@ -332,7 +337,7 @@
         </div>
       </div>
 
-      <button class="cta-btn" id="startBtn">Get Started <span>&rarr;</span></button>
+      <button type="button" class="cta-btn" id="startBtn">Get Started <span>&rarr;</span></button>
       <div class="sub-caption">Complete registration to start trading</div>
     </div>
 
@@ -344,7 +349,6 @@
       </div>
     </div>
   </div>
-
 
   <!-- ================= REGISTER FORM (STEP 1) ================= -->
   <div class="page hidden" id="registerPage">
@@ -426,37 +430,63 @@
     </form>
   </div>
 
+  <!-- Safe Script Execution -->
   <script>
-    const tg = window.Telegram.WebApp;
-    tg.expand();
-
-    // Navigation trigger
-    document.getElementById('startBtn').addEventListener('click', function() {
-      document.getElementById('landingPage').classList.add('hidden');
-      document.getElementById('registerPage').classList.remove('hidden');
-      window.scrollTo(0,0);
-    });
-
-    // Form Submission to Telegram Bot
-    document.getElementById('regForm').addEventListener('submit', function(e) {
-      e.preventDefault();
-
-      const payload = {
-        action: "submit_step_1",
-        data: {
-          nickname: document.getElementById('nickname').value,
-          full_name: document.getElementById('fullName').value,
-          email: document.getElementById('email').value,
-          country: "Ethiopia",
-          phone: "+251" + document.getElementById('phone').value,
-          currency: "ETB",
-          binance_id: document.getElementById('binanceId').value,
-          referral_code: document.getElementById('referralCode').value
+    document.addEventListener("DOMContentLoaded", function () {
+      // Safely initialize Telegram SDK
+      let tg = null;
+      if (window.Telegram && window.Telegram.WebApp) {
+        tg = window.Telegram.WebApp;
+        try {
+          tg.ready();
+          tg.expand();
+        } catch (err) {
+          console.warn("Telegram WebApp API ready call failed:", err);
         }
-      };
+      }
 
-      // Send payload to Python backend
-      tg.sendData(JSON.stringify(payload));
+      const startBtn = document.getElementById('startBtn');
+      const landingPage = document.getElementById('landingPage');
+      const registerPage = document.getElementById('registerPage');
+
+      // 1. Switch from Landing Page to Registration Form
+      if (startBtn) {
+        startBtn.addEventListener('click', function (e) {
+          e.preventDefault();
+          landingPage.classList.add('hidden');
+          registerPage.classList.remove('hidden');
+          window.scrollTo(0, 0);
+        });
+      }
+
+      // 2. Handle Form Submission
+      const regForm = document.getElementById('regForm');
+      if (regForm) {
+        regForm.addEventListener('submit', function (e) {
+          e.preventDefault();
+
+          const payload = {
+            action: "submit_step_1",
+            data: {
+              nickname: document.getElementById('nickname').value,
+              full_name: document.getElementById('fullName').value,
+              email: document.getElementById('email').value,
+              country: "Ethiopia",
+              phone: "+251" + document.getElementById('phone').value,
+              currency: "ETB",
+              binance_id: document.getElementById('binanceId').value,
+              referral_code: document.getElementById('referralCode').value
+            }
+          };
+
+          if (tg && tg.sendData) {
+            tg.sendData(JSON.stringify(payload));
+          } else {
+            alert("Registration Submitted Successfully! (Testing Mode: WebApp API unavailable outside Telegram)");
+            console.log("Submitted Payload:", payload);
+          }
+        });
+      }
     });
   </script>
 </body>
