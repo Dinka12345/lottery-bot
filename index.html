@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AllP2PBot</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: #12161c;
+            color: #ffffff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 400px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #12161c;
+        }
+
+        .header {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            color: #ffffff;
+        }
+
+        .header .close, .header .menu {
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        .header .title {
+            font-size: 18px;
+            font-weight: 500;
+        }
+
+        .feature-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .icon-box {
+            width: 48px;
+            height: 48px;
+            background-color: #1b222d;
+            border-radius: 12px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 8px;
+            color: #f0b90b;
+            font-size: 20px;
+        }
+
+        .feature-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 4px;
+            color: #ffffff;
+        }
+
+        .feature-desc {
+            font-size: 13px;
+            color: #848e9c;
+        }
+
+        .card {
+            width: 100%;
+            background-color: #181f2a;
+            border: 1px solid #273142;
+            border-radius: 16px;
+            padding: 20px;
+            margin-top: 10px;
+            margin-bottom: 20px;
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            color: #f0b90b;
+            font-weight: 600;
+            font-size: 16px;
+        }
+
+        .card-header span {
+            margin-right: 8px;
+            font-size: 18px;
+        }
+
+        .card-desc {
+            font-size: 13px;
+            color: #848e9c;
+            line-height: 1.5;
+        }
+
+        .card-desc strong {
+            color: #ffffff;
+        }
+
+        .btn-primary {
+            width: 100%;
+            background-color: #f0b90b;
+            color: #000000;
+            border: none;
+            border-radius: 12px;
+            padding: 16px;
+            font-size: 16px;
+            font-weight: 600;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            margin-bottom: 12px;
+        }
+
+        .btn-primary span {
+            margin-left: 8px;
+        }
+
+        .footer-text {
+            font-size: 12px;
+            color: #848e9c;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+
+        .country-selector {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .flag-icon {
+            width: 28px;
+            height: 20px;
+            border-radius: 3px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Ethiopian Flag CSS Construction */
+        .flag-ethiopia {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+        .eth-green { background-color: #078930; flex: 1; }
+        .eth-yellow { background-color: #fcd116; flex: 1; position: relative; }
+        .eth-red { background-color: #da121a; flex: 1; }
+        
+        .eth-star {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 8px;
+            color: #002d62;
+            line-height: 1;
+        }
+
+        .country-name {
+            font-size: 14px;
+            font-weight: 500;
+            color: #ffffff;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Top Navigation -->
+        <div class="header">
+            <div class="close">&#10005;</div>
+            <div class="title">AllP2PBot</div>
+            <div class="menu">&#8942;</div>
+        </div>
+
+        <!-- Secure Feature -->
+        <div class="feature-item">
+            <div class="icon-box">🛡</div>
+            <div class="feature-title">Secure</div>
+            <div class="feature-desc">Protected trades with escrow</div>
+        </div>
+
+        <!-- Community Feature -->
+        <div class="feature-item">
+            <div class="icon-box">👥</div>
+            <div class="feature-title">Community</div>
+            <div class="feature-desc">Verified members only</div>
+        </div>
+
+        <!-- Fast Feature -->
+        <div class="feature-item">
+            <div class="icon-box">📈</div>
+            <div class="feature-title">Fast</div>
+            <div class="feature-desc">Instant peer-to-peer trades</div>
+        </div>
+
+        <!-- Membership Access Card -->
+        <div class="card">
+            <div class="card-header">
+                <span>✔</span> Membership Access
+            </div>
+            <div class="card-desc">
+                Exclusive to closed community members with verified <strong>Binance</strong> accounts registered before <strong>March 2025</strong>.
+            </div>
+        </div>
+
+        <!-- Action Button -->
+        <button class="btn-primary">
+            Get Started <span>&rarr;</span>
+        </button>
+
+        <div class="footer-text">
+            Complete registration to start trading
+        </div>
+
+        <!-- Country Selector with Ethiopia Flag -->
+        <div class="country-selector">
+            <div class="flag-icon">
+                <div class="flag-ethiopia">
+                    <div class="eth-green"></div>
+                    <div class="eth-yellow">
+                        <div class="eth-star">★</div>
+                    </div>
+                    <div class="eth-red"></div>
+                </div>
+            </div>
+            <span class="country-name">Ethiopia</span>
+        </div>
+    </div>
+
+</body>
+</html>
