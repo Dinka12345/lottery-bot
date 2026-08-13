@@ -1,549 +1,276 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Trading Platform</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+  <title>Trading Portal</title>
+  <!-- Telegram Web App SDK -->
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
   <style>
+    :root {
+      --bg-color: #12161c;
+      --card-bg: #1e2329;
+      --text-main: #ffffff;
+      --text-muted: #848e9c;
+      --accent-color: #f0b90b;
+      --accent-hover: #e0ac07;
+      --border-color: #2b313a;
+    }
+
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-    }
-
-    html {
-      scroll-behavior: smooth;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     }
 
     body {
-      background-color: #121418;
-      color: #ffffff;
+      background-color: var(--bg-color);
+      color: var(--text-main);
       display: flex;
-      justify-content: center;
+      flex-direction: column;
       align-items: center;
-      padding: 20px 0;
+      justify-content: space-between;
+      min-height: 100vh;
+      padding: 24px 16px;
     }
 
     .container {
       width: 100%;
-      max-width: 420px;
-      padding: 0 10px;
-    }
-
-    .section {
-      min-height: 100vh;
+      max-width: 400px;
       display: flex;
       flex-direction: column;
-      justify-content: center;
-      padding: 20px 0;
+      gap: 24px;
     }
 
-    /* ----------------------------------------------------
-       SECTION 1: LANDING VIEW
-    ---------------------------------------------------- */
+    /* Feature Highlights */
+    .features-list {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      align-items: center;
+      text-align: center;
+      margin-top: 10px;
+    }
+
     .feature-item {
       display: flex;
       flex-direction: column;
       align-items: center;
-      text-align: center;
-      margin-bottom: 24px;
+      gap: 6px;
     }
 
-    .icon-box {
-      width: 48px;
-      height: 48px;
+    .feature-icon {
+      width: 44px;
+      height: 44px;
       background-color: #2b2f36;
       border-radius: 12px;
       display: flex;
-      justify-content: center;
       align-items: center;
-      margin-bottom: 8px;
+      justify-content: center;
+      margin-bottom: 4px;
     }
 
-    .icon-box svg {
-      width: 24px;
-      height: 24px;
-      stroke: #f0b90b;
-      fill: none;
-      stroke-width: 2;
-      stroke-linecap: round;
-      stroke-linejoin: round;
+    .feature-icon svg {
+      width: 22px;
+      height: 22px;
+      fill: var(--accent-color);
     }
 
     .feature-title {
-      font-size: 16px;
       font-weight: 600;
-      margin-bottom: 4px;
+      font-size: 16px;
     }
 
     .feature-desc {
       font-size: 13px;
-      color: #848e9c;
+      color: var(--text-muted);
     }
 
-    .card {
-      background-color: #1e2329;
-      border-radius: 16px;
-      padding: 20px;
-      width: 100%;
-      margin-top: 8px;
-    }
-
-    .card-banner {
-      background-color: #181a20;
+    /* Notice Card */
+    .notice-card {
+      background-color: var(--card-bg);
+      border: 1px solid var(--border-color);
       border-radius: 12px;
       padding: 16px;
-      text-align: left;
-      margin-bottom: 16px;
-    }
-
-    .card-title-group {
       display: flex;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 10px;
+      gap: 12px;
+      align-items: flex-start;
     }
 
     .check-icon {
-      width: 22px;
-      height: 22px;
-      background-color: #f0b90b;
+      width: 20px;
+      height: 20px;
+      background-color: var(--accent-color);
+      color: #000;
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
+      font-weight: bold;
+      font-size: 12px;
       flex-shrink: 0;
+      margin-top: 2px;
     }
 
-    .check-icon svg {
-      width: 14px;
-      height: 14px;
-      stroke: #181a20;
-      stroke-width: 3;
-      fill: none;
-    }
-
-    .card-title {
-      color: #f0b90b;
-      font-size: 16px;
-      font-weight: 700;
-    }
-
-    .card-text {
-      font-size: 13px;
-      color: #848e9c;
-      line-height: 1.5;
-    }
-
-    .card-text strong {
-      color: #ffffff;
-    }
-
-    .card-text .highlight {
-      color: #f0b90b;
-    }
-
-    .btn-submit {
-      width: 100%;
-      background-color: #f0b90b;
-      color: #181a20;
-      border: none;
-      border-radius: 12px;
-      padding: 14px 20px;
-      font-size: 15px;
-      font-weight: 700;
-      cursor: pointer;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 8px;
-      text-decoration: none;
-      transition: background-color 0.2s;
-    }
-
-    .btn-submit:hover {
-      background-color: #fcd535;
-    }
-
-    .card-footer-text {
-      font-size: 12px;
-      color: #848e9c;
-      margin-top: 12px;
-      text-align: center;
-    }
-
-    .footer {
-      margin-top: 32px;
+    .notice-content {
       display: flex;
       flex-direction: column;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .footer-subtitle {
-      font-size: 13px;
-      color: #848e9c;
-    }
-
-    .country-tag {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 15px;
-      font-weight: 600;
-      color: #ffffff;
-    }
-
-    .ethiopia-flag {
-      width: 24px;
-      height: 16px;
-      border-radius: 2px;
-      object-fit: cover;
-    }
-
-    /* ----------------------------------------------------
-       SECTION 2: REGISTER FORM
-    ---------------------------------------------------- */
-    .header-group {
-      display: flex;
-      justify-content: space-between;
-      align-items: baseline;
-      margin-bottom: 6px;
-    }
-
-    .main-title {
-      color: #f0b90b;
-      font-size: 24px;
-      font-weight: 700;
-    }
-
-    .step-indicator {
-      color: #848e9c;
-      font-size: 13px;
-    }
-
-    .subtitle {
-      color: #848e9c;
-      font-size: 14px;
-      margin-bottom: 16px;
-    }
-
-    .progress-bar-bg {
-      width: 100%;
-      height: 4px;
-      background-color: #2b2f36;
-      border-radius: 2px;
-      margin-bottom: 24px;
-      overflow: hidden;
-    }
-
-    .progress-bar-fill {
-      width: 50%;
-      height: 100%;
-      background-color: #f0b90b;
-    }
-
-    .form-group {
-      margin-bottom: 18px;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .label {
-      font-size: 13px;
-      font-weight: 500;
-      color: #eaecef;
-      margin-bottom: 8px;
-    }
-
-    .asterisk {
-      color: #f6465d;
-    }
-
-    .input-field {
-      width: 100%;
-      background-color: #1e2329;
-      border: 1px solid transparent;
-      border-radius: 8px;
-      padding: 14px 16px;
-      color: #ffffff;
-      font-size: 14px;
-      outline: none;
-    }
-
-    .input-field.active {
-      border: 1px solid #f0b90b;
-    }
-
-    .warning-note {
-      display: flex;
-      align-items: flex-start;
       gap: 6px;
-      font-size: 12px;
-      color: #848e9c;
-      margin-top: 6px;
+    }
+
+    .notice-title {
+      font-weight: 600;
+      color: var(--accent-color);
+      font-size: 15px;
+    }
+
+    .notice-text {
+      font-size: 13px;
+      color: var(--text-muted);
       line-height: 1.4;
     }
 
-    .warning-icon {
-      color: #f0b90b;
-      font-size: 12px;
-      margin-top: 1px;
+    .notice-text strong {
+      color: var(--text-main);
     }
 
-    .warning-note strong {
-      color: #eaecef;
-    }
-
-    .phone-container {
-      display: flex;
-      gap: 10px;
-    }
-
-    .country-code {
-      width: 80px;
-      background-color: #1e2329;
-      border-radius: 8px;
+    /* Primary Action Button */
+    .action-btn {
+      width: 100%;
+      background-color: var(--accent-color);
+      color: #000000;
+      border: none;
+      border-radius: 24px;
+      padding: 14px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
-      color: #848e9c;
-      font-size: 14px;
+      gap: 8px;
+      transition: background 0.2s;
     }
 
-    .phone-input {
-      flex: 1;
+    .action-btn:active {
+      background-color: var(--accent-hover);
     }
 
-    .display-box {
-      background-color: #1e2329;
-      border-radius: 8px;
-      padding: 12px 16px;
+    .btn-subtext {
+      text-align: center;
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-top: -12px;
+    }
+
+    /* Footer Section */
+    .footer {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      margin-top: auto;
+      padding-top: 20px;
+    }
+
+    .footer-powered {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .footer-country {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 6px;
       font-size: 14px;
-      color: #ffffff;
+      font-weight: 500;
     }
 
-    .field-hint {
-      font-size: 12px;
-      color: #848e9c;
-      margin-top: 6px;
-    }
-
-    .btn-step2 {
-      margin-top: 12px;
-      margin-bottom: 24px;
-    }
-
-    .info-card {
-      background-color: #1e2329;
-      border-radius: 12px;
-      padding: 16px;
-      font-size: 13px;
-      color: #848e9c;
-      line-height: 1.5;
-    }
-
-    .info-card .highlight-note {
-      color: #f0b90b;
-      font-weight: 600;
+    .flag-icon {
+      font-size: 18px;
     }
   </style>
 </head>
 <body>
 
   <div class="container">
-
-    <!-- PAGE 1: LANDING SECTION -->
-    <div class="section" id="home">
-      
-      <!-- Secure -->
+    <!-- Key Features -->
+    <div class="features-list">
+      <!-- Secure Feature -->
       <div class="feature-item">
-        <div class="icon-box">
-          <svg viewBox="0 0 24 24">
-            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
-          </svg>
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8s0 0 0 0z"/></svg>
         </div>
         <div class="feature-title">Secure</div>
         <div class="feature-desc">Protected trades with escrow</div>
       </div>
 
-      <!-- Community -->
+      <!-- Community Feature -->
       <div class="feature-item">
-        <div class="icon-box">
-          <svg viewBox="0 0 24 24">
-            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
-            <circle cx="9" cy="7" r="4"></circle>
-            <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
-            <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
-          </svg>
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
         </div>
         <div class="feature-title">Community</div>
         <div class="feature-desc">Verified members only</div>
       </div>
 
-      <!-- Fast -->
+      <!-- Fast Feature -->
       <div class="feature-item">
-        <div class="icon-box">
-          <svg viewBox="0 0 24 24">
-            <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline>
-            <polyline points="17 6 23 6 23 12"></polyline>
-          </svg>
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24"><path d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z"/></svg>
         </div>
         <div class="feature-title">Fast</div>
         <div class="feature-desc">Instant peer-to-peer trades</div>
       </div>
-
-      <!-- Card -->
-      <div class="card">
-        <div class="card-banner">
-          <div class="card-title-group">
-            <div class="check-icon">
-              <svg viewBox="0 0 24 24">
-                <polyline points="20 6 9 17 4 12"></polyline>
-              </svg>
-            </div>
-            <div class="card-title">Membership Access</div>
-          </div>
-          <p class="card-text">
-            Exclusive to closed community members with verified <strong>Binance</strong> accounts registered before <span class="highlight">March 2025</span>.
-          </p>
-        </div>
-
-        <!-- HTML ANCHOR LINK (No JS needed) -->
-        <a href="#register" class="btn-submit">
-          Get Started 
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-            <line x1="5" y1="12" x2="19" y2="12"></line>
-            <polyline points="12 5 19 12 12 19"></polyline>
-          </svg>
-        </a>
-
-        <div class="card-footer-text">Complete registration to start trading</div>
-      </div>
-
-      <!-- Footer -->
-      <div class="footer">
-        <div class="footer-subtitle">Powered by Blockchain Liberty Foundation</div>
-        <div class="country-tag">
-          <svg class="ethiopia-flag" viewBox="0 0 1200 600">
-            <rect width="1200" height="200" fill="#009A44"/>
-            <rect y="200" width="1200" height="200" fill="#FED100"/>
-            <rect y="400" width="1200" height="200" fill="#E4002B"/>
-            <circle cx="600" cy="300" r="120" fill="#0033A0"/>
-            <path d="M600 200 l23.5 72.3 h76 l-61.5 44.7 23.5 72.3-61.5-44.7-61.5 44.7 23.5-72.3-61.5-44.7 h76 z" fill="#FED100"/>
-          </svg>
-          Ethiopia 🇪🇹
-        </div>
-      </div>
-
     </div>
 
-    <!-- PAGE 2: REGISTER SECTION -->
-    <div class="section" id="register">
-      <div class="header-group">
-        <h1 class="main-title">Register</h1>
-        <span class="step-indicator">Step 1 of 2</span>
+    <!-- Membership Notice Box -->
+    <div class="notice-card">
+      <div class="check-icon">✓</div>
+      <div class="notice-content">
+        <div class="notice-title">Membership Access</div>
+        <div class="notice-text">
+          Exclusive to registered community members with verified accounts.
+        </div>
       </div>
-      <p class="subtitle">Complete your basic information</p>
-
-      <div class="progress-bar-bg">
-        <div class="progress-bar-fill"></div>
-      </div>
-
-      <form>
-        <!-- Nickname -->
-        <div class="form-group">
-          <label class="label">Nickname <span class="asterisk">*</span></label>
-          <input type="text" class="input-field active">
-        </div>
-
-        <!-- Full Name -->
-        <div class="form-group">
-          <label class="label">Full Name <span class="asterisk">*</span></label>
-          <input type="text" class="input-field">
-          <div class="warning-note">
-            <span class="warning-icon">⚠️</span>
-            <span>Enter your name <strong>exactly as it appears on your National ID</strong>. This will be locked after verification and cannot be changed.</span>
-          </div>
-        </div>
-
-        <!-- Email -->
-        <div class="form-group">
-          <label class="label">Email <span class="asterisk">*</span></label>
-          <input type="email" class="input-field">
-        </div>
-
-        <!-- Country -->
-        <div class="form-group">
-          <label class="label">Country <span class="asterisk">*</span></label>
-          <div class="display-box">
-            <svg class="ethiopia-flag" viewBox="0 0 1200 600">
-              <rect width="1200" height="200" fill="#009A44"/>
-              <rect y="200" width="1200" height="200" fill="#FED100"/>
-              <rect y="400" width="1200" height="200" fill="#E4002B"/>
-              <circle cx="600" cy="300" r="120" fill="#0033A0"/>
-              <path d="M600 200 l23.5 72.3 h76 l-61.5 44.7 23.5 72.3-61.5-44.7-61.5 44.7 23.5-72.3-61.5-44.7 h76 z" fill="#FED100"/>
-            </svg>
-            <span>Ethiopia</span>
-          </div>
-        </div>
-
-        <!-- Phone Number -->
-        <div class="form-group">
-          <label class="label">Phone Number <span class="asterisk">*</span></label>
-          <div class="phone-container">
-            <div class="country-code">+251</div>
-            <input type="tel" class="input-field phone-input" placeholder="912345678">
-          </div>
-          <div class="field-hint">Enter phone number without country code</div>
-        </div>
-
-        <!-- Currency -->
-        <div class="form-group">
-          <label class="label">Currency <span class="asterisk">*</span></label>
-          <div class="display-box">
-            <svg class="ethiopia-flag" viewBox="0 0 1200 600">
-              <rect width="1200" height="200" fill="#009A44"/>
-              <rect y="200" width="1200" height="200" fill="#FED100"/>
-              <rect y="400" width="1200" height="200" fill="#E4002B"/>
-              <circle cx="600" cy="300" r="120" fill="#0033A0"/>
-              <path d="M600 200 l23.5 72.3 h76 l-61.5 44.7 23.5 72.3-61.5-44.7-61.5 44.7 23.5-72.3-61.5-44.7 h76 z" fill="#FED100"/>
-            </svg>
-            <span>Ethiopian Birr (ETB)</span>
-          </div>
-        </div>
-
-        <!-- Binance ID -->
-        <div class="form-group">
-          <label class="label">Binance ID <span class="asterisk">*</span></label>
-          <input type="text" class="input-field">
-          <div class="field-hint">Required: Must be registered before March 2025</div>
-        </div>
-
-        <!-- Referral Code -->
-        <div class="form-group">
-          <label class="label">Referral Code (Optional)</label>
-          <input type="text" class="input-field">
-          <div class="field-hint">Have a referral code? Enter it when registering on AllP2P.</div>
-        </div>
-
-        <!-- Continue Button -->
-        <a href="#home" class="btn-submit btn-step2">
-          Continue to Step 2 &rarr;
-        </a>
-
-        <!-- Note Card -->
-        <div class="info-card">
-          <span class="highlight-note">Note:</span> You must have a verified Binance account registered before March 2025 to join this platform.
-        </div>
-      </form>
     </div>
 
+    <!-- Action Button -->
+    <div style="display: flex; flex-direction: column; gap: 8px;">
+      <button class="action-btn" id="startBtn">
+        Get Started &rarr;
+      </button>
+      <div class="btn-subtext">Complete registration to start trading</div>
+    </div>
   </div>
 
+  <!-- Footer -->
+  <div class="footer">
+    <div class="footer-powered">Powered by Blockchain Liberty Foundation</div>
+    <div class="footer-country">
+      <span class="flag-icon">🇪🇹</span>
+      <span>Ethiopia</span>
+    </div>
+  </div>
+
+  <script>
+    // Initialize Telegram WebApp SDK
+    const tg = window.Telegram?.WebApp;
+    if (tg) {
+      tg.ready();
+      tg.expand(); // Expand mini app to full height
+    }
+
+    // Button click action
+    document.getElementById('startBtn').addEventListener('click', () => {
+      if (tg && tg.sendData) {
+        // Send data back to the Telegram Bot
+        tg.sendData(JSON.stringify({ action: "start_registration" }));
+      } else {
+        alert("Action triggered: Get Started");
+      }
+    });
+  </script>
 </body>
 </html>
