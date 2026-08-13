@@ -1,22 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
-  <title>Trading Portal</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>Telegram Mini App</title>
   <!-- Telegram Web App SDK -->
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
   <style>
-    :root {
-      --bg-color: #12161c;
-      --card-bg: #1e2329;
-      --text-main: #ffffff;
-      --text-muted: #848e9c;
-      --accent-color: #f0b90b;
-      --accent-hover: #e0ac07;
-      --border-color: #2b313a;
-    }
-
     * {
       box-sizing: border-box;
       margin: 0;
@@ -25,251 +15,448 @@
     }
 
     body {
-      background-color: var(--bg-color);
-      color: var(--text-main);
+      background-color: #12161c;
+      color: #ffffff;
+      min-height: 100vh;
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: space-between;
-      min-height: 100vh;
-      padding: 24px 16px;
+      padding: 24px 20px;
     }
 
-    .container {
+    .page {
       width: 100%;
-      max-width: 400px;
+      max-width: 420px;
       display: flex;
       flex-direction: column;
-      gap: 24px;
     }
 
-    /* Feature Highlights */
-    .features-list {
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
+    .hidden {
+      display: none !important;
+    }
+
+    /* ---------------- PAGE 1: LANDING ---------------- */
+    #landingPage {
       align-items: center;
       text-align: center;
-      margin-top: 10px;
+      justify-content: space-between;
+      min-height: calc(100vh - 48px);
     }
 
     .feature-item {
+      margin-bottom: 24px;
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 6px;
     }
 
-    .feature-icon {
-      width: 44px;
-      height: 44px;
-      background-color: #2b2f36;
+    .icon-box {
+      width: 48px;
+      height: 48px;
+      background-color: #202630;
       border-radius: 12px;
       display: flex;
       align-items: center;
       justify-content: center;
-      margin-bottom: 4px;
+      margin-bottom: 8px;
     }
 
-    .feature-icon svg {
-      width: 22px;
-      height: 22px;
-      fill: var(--accent-color);
+    .icon-box svg {
+      width: 24px;
+      height: 24px;
+      fill: #f3ba2f;
     }
 
     .feature-title {
-      font-weight: 600;
       font-size: 16px;
+      font-weight: 600;
+      color: #ffffff;
+      margin-bottom: 4px;
     }
 
     .feature-desc {
       font-size: 13px;
-      color: var(--text-muted);
+      color: #848e9c;
     }
 
-    /* Notice Card */
-    .notice-card {
-      background-color: var(--card-bg);
-      border: 1px solid var(--border-color);
-      border-radius: 12px;
-      padding: 16px;
+    .membership-card {
+      background-color: #1a1f26;
+      border: 1px solid #2b313a;
+      border-radius: 16px;
+      padding: 20px;
+      text-align: left;
+      margin-top: 10px;
+      margin-bottom: 20px;
+      width: 100%;
+    }
+
+    .membership-header {
       display: flex;
-      gap: 12px;
-      align-items: flex-start;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 10px;
     }
 
-    .check-icon {
-      width: 20px;
-      height: 20px;
-      background-color: var(--accent-color);
-      color: #000;
+    .check-circle {
+      width: 22px;
+      height: 22px;
+      background-color: #f3ba2f;
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-weight: bold;
-      font-size: 12px;
-      flex-shrink: 0;
-      margin-top: 2px;
     }
 
-    .notice-content {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
+    .check-circle svg {
+      width: 14px;
+      height: 14px;
+      fill: #12161c;
     }
 
-    .notice-title {
-      font-weight: 600;
-      color: var(--accent-color);
-      font-size: 15px;
+    .membership-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: #f3ba2f;
     }
 
-    .notice-text {
+    .membership-text {
       font-size: 13px;
-      color: var(--text-muted);
-      line-height: 1.4;
+      line-height: 1.5;
+      color: #848e9c;
+      padding-left: 32px;
     }
 
-    .notice-text strong {
-      color: var(--text-main);
-    }
+    .membership-text strong { color: #ffffff; }
+    .membership-text .highlight { color: #f3ba2f; }
 
-    /* Primary Action Button */
-    .action-btn {
+    .cta-btn {
       width: 100%;
-      background-color: var(--accent-color);
+      background-color: #f3ba2f;
       color: #000000;
       border: none;
-      border-radius: 24px;
-      padding: 14px;
+      border-radius: 12px;
+      padding: 16px;
       font-size: 16px;
-      font-weight: 600;
+      font-weight: 700;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 8px;
-      transition: background 0.2s;
     }
 
-    .action-btn:active {
-      background-color: var(--accent-hover);
-    }
-
-    .btn-subtext {
-      text-align: center;
+    .sub-caption {
       font-size: 12px;
-      color: var(--text-muted);
-      margin-top: -12px;
+      color: #848e9c;
+      margin-top: 10px;
     }
 
-    /* Footer Section */
     .footer {
+      margin-top: auto;
+      padding-top: 30px;
+      text-align: center;
+      font-size: 13px;
+      color: #848e9c;
+    }
+
+    .country-tag {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 10px;
+      color: #ffffff;
+      font-weight: 500;
+      font-size: 14px;
+    }
+
+    /* ---------------- PAGE 2: REGISTER FORM ---------------- */
+    .form-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 4px;
+    }
+
+    .form-title {
+      font-size: 22px;
+      font-weight: 700;
+      color: #f3ba2f;
+    }
+
+    .step-indicator {
+      font-size: 13px;
+      color: #848e9c;
+    }
+
+    .form-subtitle {
+      font-size: 14px;
+      color: #848e9c;
+      margin-bottom: 16px;
+    }
+
+    .progress-bar-bg {
+      width: 100%;
+      height: 4px;
+      background-color: #2b313a;
+      border-radius: 2px;
+      margin-bottom: 24px;
+    }
+
+    .progress-bar-fill {
+      width: 50%;
+      height: 100%;
+      background-color: #f3ba2f;
+      border-radius: 2px;
+    }
+
+    .input-group {
+      margin-bottom: 20px;
       display: flex;
       flex-direction: column;
-      align-items: center;
-      gap: 8px;
-      margin-top: auto;
-      padding-top: 20px;
     }
 
-    .footer-powered {
-      font-size: 12px;
-      color: var(--text-muted);
-    }
-
-    .footer-country {
-      display: flex;
-      align-items: center;
-      gap: 6px;
+    .label {
       font-size: 14px;
       font-weight: 500;
+      margin-bottom: 8px;
+      color: #ffffff;
     }
 
-    .flag-icon {
-      font-size: 18px;
+    .required {
+      color: #f6465d;
+    }
+
+    .input-field {
+      width: 100%;
+      background-color: #1e2329;
+      border: 1px solid #2b313a;
+      border-radius: 10px;
+      padding: 14px 16px;
+      color: #ffffff;
+      font-size: 15px;
+      outline: none;
+    }
+
+    .input-field:focus {
+      border-color: #f3ba2f;
+    }
+
+    .readonly-field {
+      background-color: #1a1f26;
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      border: 1px solid #2b313a;
+      border-radius: 10px;
+      padding: 14px 16px;
+      font-size: 15px;
+    }
+
+    .phone-container {
+      display: flex;
+      gap: 10px;
+    }
+
+    .phone-prefix {
+      width: 80px;
+      background-color: #1a1f26;
+      border: 1px solid #2b313a;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #848e9c;
+      font-size: 15px;
+    }
+
+    .hint-text {
+      font-size: 12px;
+      color: #848e9c;
+      margin-top: 6px;
+      line-height: 1.4;
+    }
+
+    .warning-hint {
+      display: flex;
+      align-items: flex-start;
+      gap: 6px;
+    }
+
+    .warning-icon {
+      color: #f3ba2f;
+      font-size: 12px;
+    }
+
+    .submit-btn {
+      margin-top: 10px;
     }
   </style>
 </head>
 <body>
 
-  <div class="container">
-    <!-- Key Features -->
-    <div class="features-list">
-      <!-- Secure Feature -->
+  <!-- ================= LANDING PAGE ================= -->
+  <div class="page" id="landingPage">
+    <div style="width: 100%;">
       <div class="feature-item">
-        <div class="feature-icon">
-          <svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8s0 0 0 0z"/></svg>
-        </div>
         <div class="feature-title">Secure</div>
         <div class="feature-desc">Protected trades with escrow</div>
       </div>
 
-      <!-- Community Feature -->
       <div class="feature-item">
-        <div class="feature-icon">
+        <div class="icon-box">
           <svg viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
         </div>
         <div class="feature-title">Community</div>
         <div class="feature-desc">Verified members only</div>
       </div>
 
-      <!-- Fast Feature -->
       <div class="feature-item">
-        <div class="feature-icon">
+        <div class="icon-box">
           <svg viewBox="0 0 24 24"><path d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z"/></svg>
         </div>
         <div class="feature-title">Fast</div>
         <div class="feature-desc">Instant peer-to-peer trades</div>
       </div>
-    </div>
 
-    <!-- Membership Notice Box -->
-    <div class="notice-card">
-      <div class="check-icon">✓</div>
-      <div class="notice-content">
-        <div class="notice-title">Membership Access</div>
-        <div class="notice-text">
-          Exclusive to registered community members with verified accounts.
+      <div class="membership-card">
+        <div class="membership-header">
+          <div class="check-circle">
+            <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+          </div>
+          <div class="membership-title">Membership Access</div>
+        </div>
+        <div class="membership-text">
+          Exclusive to closed community members with verified <strong>Binance</strong> accounts registered before <span class="highlight">March 2025</span>.
         </div>
       </div>
+
+      <button class="cta-btn" id="startBtn">Get Started <span>&rarr;</span></button>
+      <div class="sub-caption">Complete registration to start trading</div>
     </div>
 
-    <!-- Action Button -->
-    <div style="display: flex; flex-direction: column; gap: 8px;">
-      <button class="action-btn" id="startBtn">
-        Get Started &rarr;
-      </button>
-      <div class="btn-subtext">Complete registration to start trading</div>
+    <div class="footer">
+      <div>Powered by Blockchain Liberty Foundation</div>
+      <div class="country-tag">
+        <span>🇪🇹</span>
+        <span>Ethiopia</span>
+      </div>
     </div>
   </div>
 
-  <!-- Footer -->
-  <div class="footer">
-    <div class="footer-powered">Powered by Blockchain Liberty Foundation</div>
-    <div class="footer-country">
-      <span class="flag-icon">🇪🇹</span>
-      <span>Ethiopia</span>
+
+  <!-- ================= REGISTER FORM (STEP 1) ================= -->
+  <div class="page hidden" id="registerPage">
+    <div class="form-header">
+      <div class="form-title">Register</div>
+      <div class="step-indicator">Step 1 of 2</div>
     </div>
+    <div class="form-subtitle">Complete your basic information</div>
+
+    <div class="progress-bar-bg">
+      <div class="progress-bar-fill"></div>
+    </div>
+
+    <form id="regForm">
+      <!-- Nickname -->
+      <div class="input-group">
+        <label class="label">Nickname <span class="required">*</span></label>
+        <input type="text" id="nickname" class="input-field" required>
+      </div>
+
+      <!-- Full Name -->
+      <div class="input-group">
+        <label class="label">Full Name <span class="required">*</span></label>
+        <input type="text" id="fullName" class="input-field" required>
+        <div class="hint-text warning-hint">
+          <span class="warning-icon">&#9888;</span>
+          <span>Enter your name <strong>exactly as it appears on your National ID</strong>. This will be locked after verification and cannot be changed.</span>
+        </div>
+      </div>
+
+      <!-- Email -->
+      <div class="input-group">
+        <label class="label">Email <span class="required">*</span></label>
+        <input type="email" id="email" class="input-field" required>
+      </div>
+
+      <!-- Country -->
+      <div class="input-group">
+        <label class="label">Country <span class="required">*</span></label>
+        <div class="readonly-field">
+          <span>🇪🇹</span>
+          <span>Ethiopia</span>
+        </div>
+      </div>
+
+      <!-- Phone Number -->
+      <div class="input-group">
+        <label class="label">Phone Number <span class="required">*</span></label>
+        <div class="phone-container">
+          <div class="phone-prefix">+251</div>
+          <input type="tel" id="phone" class="input-field" placeholder="912345678" required>
+        </div>
+        <div class="hint-text">Enter phone number without country code</div>
+      </div>
+
+      <!-- Currency -->
+      <div class="input-group">
+        <label class="label">Currency <span class="required">*</span></label>
+        <div class="readonly-field">
+          <span>🇪🇹</span>
+          <span>Ethiopian Birr (ETB)</span>
+        </div>
+      </div>
+
+      <!-- Binance ID -->
+      <div class="input-group">
+        <label class="label">Binance ID <span class="required">*</span></label>
+        <input type="text" id="binanceId" class="input-field" required>
+        <div class="hint-text">Required: Must be registered before March 2025</div>
+      </div>
+
+      <!-- Referral Code -->
+      <div class="input-group">
+        <label class="label">Referral Code (Optional)</label>
+        <input type="text" id="referralCode" class="input-field">
+      </div>
+
+      <button type="submit" class="cta-btn submit-btn">Continue <span>&rarr;</span></button>
+    </form>
   </div>
 
   <script>
-    // Initialize Telegram WebApp SDK
-    const tg = window.Telegram?.WebApp;
-    if (tg) {
-      tg.ready();
-      tg.expand(); // Expand mini app to full height
-    }
+    const tg = window.Telegram.WebApp;
+    tg.expand();
 
-    // Button click action
-    document.getElementById('startBtn').addEventListener('click', () => {
-      if (tg && tg.sendData) {
-        // Send data back to the Telegram Bot
-        tg.sendData(JSON.stringify({ action: "start_registration" }));
-      } else {
-        alert("Action triggered: Get Started");
-      }
+    // Navigation trigger
+    document.getElementById('startBtn').addEventListener('click', function() {
+      document.getElementById('landingPage').classList.add('hidden');
+      document.getElementById('registerPage').classList.remove('hidden');
+      window.scrollTo(0,0);
+    });
+
+    // Form Submission to Telegram Bot
+    document.getElementById('regForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const payload = {
+        action: "submit_step_1",
+        data: {
+          nickname: document.getElementById('nickname').value,
+          full_name: document.getElementById('fullName').value,
+          email: document.getElementById('email').value,
+          country: "Ethiopia",
+          phone: "+251" + document.getElementById('phone').value,
+          currency: "ETB",
+          binance_id: document.getElementById('binanceId').value,
+          referral_code: document.getElementById('referralCode').value
+        }
+      };
+
+      // Send payload to Python backend
+      tg.sendData(JSON.stringify(payload));
     });
   </script>
 </body>
