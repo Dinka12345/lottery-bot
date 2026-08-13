@@ -1,467 +1,576 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Secure Trades & Register</title>
-    <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Trading Platform</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    }
 
-        body {
-            background-color: #0b0e11;
-            color: #eaecef;
-            display: flex;
-            justify-content: center;
-            align-items: flex-start;
-            min-height: 100vh;
-            padding: 20px 10px;
-        }
+    body {
+      background-color: #121418;
+      color: #ffffff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
 
-        /* Hide the toggle radio inputs */
-        input[name="view-toggle"] {
-            display: none;
-        }
+    .container {
+      width: 100%;
+      max-width: 420px;
+    }
 
-        .container {
-            width: 100%;
-            max-width: 420px;
-            background-color: #181a20;
-            border-radius: 16px;
-            padding: 32px 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
-            margin-top: auto;
-            margin-bottom: auto;
-        }
+    .hidden {
+      display: none !important;
+    }
 
-        /* View Switching Logic via Pure CSS */
-        #landing-view, #register-view {
-            width: 100%;
-        }
+    /* ----------------------------------------------------
+       VIEW 1: LANDING PAGE
+    ---------------------------------------------------- */
+    .landing-view {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
 
-        #view-landing:checked ~ .container #landing-view {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
+    .feature-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 24px;
+    }
 
-        #view-landing:checked ~ .container #register-view {
-            display: none;
-        }
+    .icon-box {
+      width: 48px;
+      height: 48px;
+      background-color: #2b2f36;
+      border-radius: 12px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 8px;
+    }
 
-        #view-register:checked ~ .container #landing-view {
-            display: none;
-        }
+    .icon-box svg {
+      width: 24px;
+      height: 24px;
+      stroke: #f0b90b;
+      fill: none;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
 
-        #view-register:checked ~ .container #register-view {
-            display: block;
-        }
+    .feature-title {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
 
-        /* --- Landing View Styles --- */
-        .feature-title {
-            font-size: 16px;
-            font-weight: 600;
-            color: #eaecef;
-            margin-bottom: 4px;
-        }
+    .feature-desc {
+      font-size: 13px;
+      color: #848e9c;
+    }
 
-        .feature-desc {
-            font-size: 13px;
-            color: #848e9c;
-            margin-bottom: 24px;
-        }
+    .card {
+      background-color: #1e2329;
+      border-radius: 16px;
+      padding: 20px;
+      width: 100%;
+      margin-top: 8px;
+    }
 
-        .icon-box {
-            width: 48px;
-            height: 48px;
-            background-color: #2b313a;
-            border-radius: 12px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-bottom: 12px;
-            color: #fcd535;
-        }
+    .card-banner {
+      background-color: #181a20;
+      border-radius: 12px;
+      padding: 16px;
+      text-align: left;
+      margin-bottom: 16px;
+    }
 
-        .membership-card {
-            width: 100%;
-            background-color: #1e2329;
-            border: 1px solid #2b313a;
-            border-radius: 12px;
-            padding: 20px;
-            text-align: left;
-            margin-bottom: 24px;
-        }
+    .card-title-group {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
 
-        .membership-header {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 16px;
-            font-weight: 600;
-            color: #fcd535;
-            margin-bottom: 10px;
-        }
+    .check-icon {
+      width: 22px;
+      height: 22px;
+      background-color: #f0b90b;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
 
-        .membership-header svg {
-            width: 20px;
-            height: 20px;
-            fill: #fcd535;
-        }
+    .check-icon svg {
+      width: 14px;
+      height: 14px;
+      stroke: #181a20;
+      stroke-width: 3;
+      fill: none;
+    }
 
-        .membership-body {
-            font-size: 13px;
-            color: #848e9c;
-            line-height: 1.5;
-        }
+    .card-title {
+      color: #f0b90b;
+      font-size: 16px;
+      font-weight: 700;
+    }
 
-        .membership-body span {
-            color: #eaecef;
-            font-weight: 500;
-        }
+    .card-text {
+      font-size: 13px;
+      color: #848e9c;
+      line-height: 1.5;
+    }
 
-        .membership-body .highlight {
-            color: #fcd535;
-        }
+    .card-text strong {
+      color: #ffffff;
+    }
 
-        .btn-get-started {
-            width: 100%;
-            background-color: #fcd535;
-            color: #0b0e11;
-            border: none;
-            border-radius: 8px;
-            padding: 14px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 8px;
-            transition: background-color 0.2s;
-            margin-bottom: 12px;
-            text-decoration: none;
-        }
+    .card-text .highlight {
+      color: #f0b90b;
+    }
 
-        .btn-get-started:hover {
-            background-color: #f0b90b;
-        }
+    .btn-submit {
+      width: 100%;
+      background-color: #f0b90b;
+      color: #181a20;
+      border: none;
+      border-radius: 12px;
+      padding: 14px 20px;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+      transition: background-color 0.2s;
+    }
 
-        .footer-note {
-            font-size: 12px;
-            color: #848e9c;
-            margin-bottom: 32px;
-        }
+    .btn-submit:hover {
+      background-color: #fcd535;
+    }
 
-        .powered-by {
-            font-size: 12px;
-            color: #848e9c;
-            margin-bottom: 12px;
-        }
+    .card-footer-text {
+      font-size: 12px;
+      color: #848e9c;
+      margin-top: 12px;
+    }
 
-        .country-info {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            font-size: 13px;
-            font-weight: 500;
-            color: #eaecef;
-        }
+    .footer {
+      margin-top: 32px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+    }
 
-        .country-info img {
-            width: 22px;
-            height: 15px;
-            border-radius: 2px;
-            object-fit: cover;
-        }
+    .footer-subtitle {
+      font-size: 13px;
+      color: #848e9c;
+    }
 
-        /* --- Registration Form Styles --- */
-        .register-container {
-            text-align: left;
-        }
+    .country-tag {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 15px;
+      font-weight: 600;
+      color: #ffffff;
+    }
 
-        .register-header-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: baseline;
-            margin-bottom: 4px;
-        }
+    .ethiopia-flag {
+      width: 24px;
+      height: 16px;
+      border-radius: 2px;
+      object-fit: cover;
+    }
 
-        .register-title {
-            font-size: 24px;
-            font-weight: 700;
-            color: #fcd535;
-        }
+    /* ----------------------------------------------------
+       VIEW 2: REGISTER FORM
+    ---------------------------------------------------- */
+    .register-view {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+    }
 
-        .step-indicator {
-            font-size: 13px;
-            color: #848e9c;
-        }
+    .header-group {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 6px;
+    }
 
-        .register-subtitle {
-            font-size: 14px;
-            color: #848e9c;
-            margin-bottom: 16px;
-        }
+    .main-title {
+      color: #f0b90b;
+      font-size: 24px;
+      font-weight: 700;
+    }
 
-        .progress-bar-container {
-            width: 100%;
-            height: 4px;
-            background-color: #2b313a;
-            border-radius: 2px;
-            margin-bottom: 24px;
-            overflow: hidden;
-        }
+    .step-indicator {
+      color: #848e9c;
+      font-size: 13px;
+    }
 
-        .progress-bar-fill {
-            width: 50%;
-            height: 100%;
-            background-color: #fcd535;
-        }
+    .subtitle {
+      color: #848e9c;
+      font-size: 14px;
+      margin-bottom: 16px;
+    }
 
-        .form-group {
-            margin-bottom: 16px;
-        }
+    /* Progress Bar */
+    .progress-bar-bg {
+      width: 100%;
+      height: 4px;
+      background-color: #2b2f36;
+      border-radius: 2px;
+      margin-bottom: 24px;
+      overflow: hidden;
+    }
 
-        .form-label {
-            display: block;
-            font-size: 13px;
-            color: #eaecef;
-            margin-bottom: 6px;
-        }
+    .progress-bar-fill {
+      width: 50%;
+      height: 100%;
+      background-color: #f0b90b;
+    }
 
-        .required-star {
-            color: #cf304a;
-        }
+    /* Form Styles */
+    .form-group {
+      margin-bottom: 18px;
+      display: flex;
+      flex-direction: column;
+    }
 
-        .form-input {
-            width: 100%;
-            background-color: #2b313a;
-            border: 1px solid #2b313a;
-            border-radius: 8px;
-            padding: 12px 14px;
-            color: #eaecef;
-            font-size: 14px;
-            outline: none;
-            transition: border-color 0.2s;
-        }
+    .label {
+      font-size: 13px;
+      font-weight: 500;
+      color: #eaecef;
+      margin-bottom: 8px;
+    }
 
-        .form-input:focus {
-            border-color: #fcd535;
-        }
+    .asterisk {
+      color: #f6465d;
+    }
 
-        .form-input-highlight {
-            border-color: #fcd535;
-        }
+    .input-field {
+      width: 100%;
+      background-color: #1e2329;
+      border: 1px solid transparent;
+      border-radius: 8px;
+      padding: 14px 16px;
+      color: #ffffff;
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
 
-        .input-with-flag {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
+    .input-field:focus {
+      border-color: #f0b90b;
+    }
 
-        .input-with-flag img {
-            width: 22px;
-            height: 15px;
-            border-radius: 2px;
-            object-fit: cover;
-        }
+    .input-field::placeholder {
+      color: #474d57;
+    }
 
-        .phone-group {
-            display: flex;
-            gap: 8px;
-        }
+    .input-field.active {
+      border: 1px solid #f0b90b;
+    }
 
-        .phone-prefix {
-            width: 75px;
-            background-color: #2b313a;
-            border: 1px solid #2b313a;
-            border-radius: 8px;
-            padding: 12px;
-            color: #848e9c;
-            text-align: center;
-            font-size: 14px;
-        }
+    .warning-note {
+      display: flex;
+      align-items: flex-start;
+      gap: 6px;
+      font-size: 12px;
+      color: #848e9c;
+      margin-top: 6px;
+      line-height: 1.4;
+    }
 
-        .phone-input {
-            flex: 1;
-        }
+    .warning-icon {
+      color: #f0b90b;
+      font-size: 12px;
+      margin-top: 1px;
+    }
 
-        .helper-text {
-            font-size: 11px;
-            color: #848e9c;
-            margin-top: 6px;
-            display: block;
-            line-height: 1.4;
-        }
+    .warning-note strong {
+      color: #eaecef;
+    }
 
-        .note-card {
-            background-color: #1e2329;
-            border: 1px solid #2b313a;
-            border-radius: 8px;
-            padding: 14px;
-            margin-top: 20px;
-            font-size: 12px;
-            color: #848e9c;
-            line-height: 1.4;
-        }
+    /* Phone Input Layout */
+    .phone-container {
+      display: flex;
+      gap: 10px;
+    }
 
-        .note-card span {
-            color: #fcd535;
-            font-weight: 600;
-        }
-    </style>
+    .country-code {
+      width: 80px;
+      background-color: #1e2329;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #848e9c;
+      font-size: 14px;
+    }
+
+    .phone-input {
+      flex: 1;
+    }
+
+    /* Readonly Select Display */
+    .display-box {
+      background-color: #1e2329;
+      border-radius: 8px;
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 14px;
+      color: #ffffff;
+    }
+
+    .field-hint {
+      font-size: 12px;
+      color: #848e9c;
+      margin-top: 6px;
+    }
+
+    /* Continue Button */
+    .btn-step2 {
+      margin-top: 12px;
+      margin-bottom: 24px;
+    }
+
+    /* Bottom Info Card */
+    .info-card {
+      background-color: #1e2329;
+      border-radius: 12px;
+      padding: 16px;
+      font-size: 13px;
+      color: #848e9c;
+      line-height: 1.5;
+    }
+
+    .info-card .highlight-note {
+      color: #f0b90b;
+      font-weight: 600;
+    }
+  </style>
 </head>
 <body>
 
-    <!-- Hidden Radios to control pages without JS -->
-    <input type="radio" id="view-landing" name="view-toggle" checked>
-    <input type="radio" id="view-register" name="view-toggle">
+  <div class="container">
 
-    <div class="container">
-        
-        <!-- PAGE 1: LANDING VIEW -->
-        <div id="landing-view">
-            <!-- Secure -->
-            <div class="feature-title">Secure</div>
-            <div class="feature-desc">Protected trades with escrow</div>
+    <!-- SCREEN 1: LANDING -->
+    <div id="landingView" class="landing-view">
+      
+      <!-- Secure -->
+      <div class="feature-item">
+        <div class="icon-box">
+          <svg viewBox="0 0 24 24">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+          </svg>
+        </div>
+        <div class="feature-title">Secure</div>
+        <div class="feature-desc">Protected trades with escrow</div>
+      </div>
 
-            <!-- Community -->
-            <div class="icon-box">
-                <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 96 960 960" width="24" fill="currentColor"><path d="M400 576q-66 0-113-47t-47-113q0-66 47-113 t113-47q66 0 113 47 t47 113q0 66-47 113t-113 47ZM80 896v-112q0-33 17-60.5t47-41.5q55-26 116-40t140-14q79 0 140 14t116 40q30 14 47 41.5t17 60.5v112H80Zm520-320q33 0 56.5-23.5T680 496q0-33-23.5-56.5T600 416q-33 0-56.5 23.5T520 496q0 33 23.5 56.5T600 576ZM240 836h480v-56q0-9-4-17.5t-11-14.5q-47-23-101.5-33.5T480 704q-58 0-112.5 10.5T266 748q-7 6-11 14.5t-4 17.5v56Zm240-340Zm0 396Z"/></svg>
+      <!-- Community -->
+      <div class="feature-item">
+        <div class="icon-box">
+          <svg viewBox="0 0 24 24">
+            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+            <circle cx="9" cy="7" r="4"></circle>
+            <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+            <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+          </svg>
+        </div>
+        <div class="feature-title">Community</div>
+        <div class="feature-desc">Verified members only</div>
+      </div>
+
+      <!-- Fast -->
+      <div class="feature-item">
+        <div class="icon-box">
+          <svg viewBox="0 0 24 24">
+            <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline>
+            <polyline points="17 6 23 6 23 12"></polyline>
+          </svg>
+        </div>
+        <div class="feature-title">Fast</div>
+        <div class="feature-desc">Instant peer-to-peer trades</div>
+      </div>
+
+      <!-- Card -->
+      <div class="card">
+        <div class="card-banner">
+          <div class="card-title-group">
+            <div class="check-icon">
+              <svg viewBox="0 0 24 24">
+                <polyline points="20 6 9 17 4 12"></polyline>
+              </svg>
             </div>
-            <div class="feature-title">Community</div>
-            <div class="feature-desc">Verified members only</div>
-
-            <!-- Fast -->
-            <div class="icon-box">
-                <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 96 960 960" width="24" fill="currentColor"><path d="m144 792-24-24 336-336 192 192 248-248-56-56-192 192-192-192-360 360Z"/></svg>
-            </div>
-            <div class="feature-title">Fast</div>
-            <div class="feature-desc">Instant peer-to-peer trades</div>
-
-            <!-- Membership Card -->
-            <div class="membership-card">
-                <div class="membership-header">
-                    <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
-                    Membership Access
-                </div>
-                <div class="membership-body">
-                    Exclusive to closed community members with verified <span>Binance</span> accounts registered before <span class="highlight">March 2025</span>.
-                </div>
-            </div>
-
-            <!-- Get Started Label Button (Triggers CSS View Change) -->
-            <label for="view-register" class="btn-get-started">
-                Get Started 
-                <svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 96 960 960" width="20" fill="currentColor"><path d="m648 768-48-47 121-121H168v-68h553L600 411l48-47 204 204-204 204Z"/></svg>
-            </label>
-            <div class="footer-note">Complete registration to start trading</div>
-
-            <div class="powered-by">Powered by Blockchain Liberty Foundation</div>
-            <div class="country-info">
-                <img src="https://flagcdn.com/w40/et.png" alt="Ethiopia Flag">
-                Ethiopia
-            </div>
+            <div class="card-title">Membership Access</div>
+          </div>
+          <p class="card-text">
+            Exclusive to closed community members with verified <strong>Binance</strong> accounts registered before <span class="highlight">March 2025</span>.
+          </p>
         </div>
 
-        <!-- PAGE 2: REGISTRATION FORM VIEW -->
-        <div id="register-view" class="register-container">
-            <div class="register-header-row">
-                <h1 class="register-title">Register</h1>
-                <span class="step-indicator">Step 1 of 2</span>
-            </div>
-            <div class="register-subtitle">Complete your basic information</div>
-            <div class="progress-bar-container">
-                <div class="progress-bar-fill"></div>
-            </div>
+        <button class="btn-submit" id="getStartedBtn">
+          Get Started 
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+            <polyline points="12 5 19 12 12 19"></polyline>
+          </svg>
+        </button>
 
-            <form onsubmit="event.preventDefault();">
-                <!-- Nickname -->
-                <div class="form-group">
-                    <label class="form-label">Nickname <span class="required-star">*</span></label>
-                    <input type="text" class="form-input form-input-highlight">
-                </div>
+        <div class="card-footer-text">Complete registration to start trading</div>
+      </div>
 
-                <!-- Full Name -->
-                <div class="form-group">
-                    <label class="form-label">Full Name <span class="required-star">*</span></label>
-                    <input type="text" class="form-input">
-                    <div class="helper-text">
-                        ⚠️ Enter your name <strong>exactly as it appears on your National ID</strong>. This will be locked after verification and cannot be changed.
-                    </div>
-                </div>
-
-                <!-- Email -->
-                <div class="form-group">
-                    <label class="form-label">Email <span class="required-star">*</span></label>
-                    <input type="email" class="form-input">
-                </div>
-
-                <!-- Country -->
-                <div class="form-group">
-                    <label class="form-label">Country <span class="required-star">*</span></label>
-                    <div class="form-input input-with-flag">
-                        <img src="https://flagcdn.com/w40/et.png" alt="Ethiopia Flag">
-                        Ethiopia
-                    </div>
-                </div>
-
-                <!-- Phone Number -->
-                <div class="form-group">
-                    <label class="form-label">Phone Number <span class="required-star">*</span></label>
-                    <div class="phone-group">
-                        <div class="phone-prefix">+251</div>
-                        <input type="tel" class="form-input phone-input" placeholder="912345678">
-                    </div>
-                    <div class="helper-text">Enter phone number without country code</div>
-                </div>
-
-                <!-- Currency -->
-                <div class="form-group">
-                    <label class="form-label">Currency <span class="required-star">*</span></label>
-                    <div class="form-input input-with-flag">
-                        <img src="https://flagcdn.com/w40/et.png" alt="Ethiopia Flag">
-                        Ethiopian Birr (ETB)
-                    </div>
-                </div>
-
-                <!-- Binance ID -->
-                <div class="form-group">
-                    <label class="form-label">Binance ID <span class="required-star">*</span></label>
-                    <input type="text" class="form-input">
-                    <div class="helper-text">Required: Must be registered before March 2025</div>
-                </div>
-
-                <!-- Referral Code -->
-                <div class="form-group">
-                    <label class="form-label">Referral Code <span style="color: #848e9c; font-weight: normal;">(Optional)</span></label>
-                    <input type="text" class="form-input">
-                    <div class="helper-text">Have a referral code? Enter it when registering on AIIP2P.</div>
-                </div>
-
-                <!-- Continue Button -->
-                <button type="button" class="btn-get-started" style="margin-top: 12px; margin-bottom: 0;">
-                    Continue to Step 2 
-                    <svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 96 960 960" width="20" fill="currentColor"><path d="m648 768-48-47 121-121H168v-68h553L600 411l48-47 204 204-204 204Z"/></svg>
-                </button>
-            </form>
-
-            <div class="note-card">
-                <span>Note:</span> You must have a verified Binance account registered before <span>March 2025</span> to join this platform.
-            </div>
+      <!-- Footer -->
+      <div class="footer">
+        <div class="footer-subtitle">Powered by Blockchain Liberty Foundation</div>
+        <div class="country-tag">
+          <svg class="ethiopia-flag" viewBox="0 0 1200 600">
+            <rect width="1200" height="200" fill="#009A44"/>
+            <rect y="200" width="1200" height="200" fill="#FED100"/>
+            <rect y="400" width="1200" height="200" fill="#E4002B"/>
+            <circle cx="600" cy="300" r="120" fill="#0033A0"/>
+            <path d="M600 200 l23.5 72.3 h76 l-61.5 44.7 23.5 72.3-61.5-44.7-61.5 44.7 23.5-72.3-61.5-44.7 h76 z" fill="#FED100"/>
+          </svg>
+          Ethiopia 🇪🇹
         </div>
+      </div>
 
     </div>
 
+    <!-- SCREEN 2: REGISTRATION FORM -->
+    <div id="registerView" class="register-view hidden">
+      <div class="header-group">
+        <h1 class="main-title">Register</h1>
+        <span class="step-indicator">Step 1 of 2</span>
+      </div>
+      <p class="subtitle">Complete your basic information</p>
+
+      <div class="progress-bar-bg">
+        <div class="progress-bar-fill"></div>
+      </div>
+
+      <form>
+        <!-- Nickname -->
+        <div class="form-group">
+          <label class="label">Nickname <span class="asterisk">*</span></label>
+          <input type="text" class="input-field active" placeholder="">
+        </div>
+
+        <!-- Full Name -->
+        <div class="form-group">
+          <label class="label">Full Name <span class="asterisk">*</span></label>
+          <input type="text" class="input-field">
+          <div class="warning-note">
+            <span class="warning-icon">⚠️</span>
+            <span>Enter your name <strong>exactly as it appears on your National ID</strong>. This will be locked after verification and cannot be changed.</span>
+          </div>
+        </div>
+
+        <!-- Email -->
+        <div class="form-group">
+          <label class="label">Email <span class="asterisk">*</span></label>
+          <input type="email" class="input-field">
+        </div>
+
+        <!-- Country -->
+        <div class="form-group">
+          <label class="label">Country <span class="asterisk">*</span></label>
+          <div class="display-box">
+            <svg class="ethiopia-flag" viewBox="0 0 1200 600">
+              <rect width="1200" height="200" fill="#009A44"/>
+              <rect y="200" width="1200" height="200" fill="#FED100"/>
+              <rect y="400" width="1200" height="200" fill="#E4002B"/>
+              <circle cx="600" cy="300" r="120" fill="#0033A0"/>
+              <path d="M600 200 l23.5 72.3 h76 l-61.5 44.7 23.5 72.3-61.5-44.7-61.5 44.7 23.5-72.3-61.5-44.7 h76 z" fill="#FED100"/>
+            </svg>
+            <span>Ethiopia</span>
+          </div>
+        </div>
+
+        <!-- Phone Number -->
+        <div class="form-group">
+          <label class="label">Phone Number <span class="asterisk">*</span></label>
+          <div class="phone-container">
+            <div class="country-code">+251</div>
+            <input type="tel" class="input-field phone-input" placeholder="912345678">
+          </div>
+          <div class="field-hint">Enter phone number without country code</div>
+        </div>
+
+        <!-- Currency -->
+        <div class="form-group">
+          <label class="label">Currency <span class="asterisk">*</span></label>
+          <div class="display-box">
+            <svg class="ethiopia-flag" viewBox="0 0 1200 600">
+              <rect width="1200" height="200" fill="#009A44"/>
+              <rect y="200" width="1200" height="200" fill="#FED100"/>
+              <rect y="400" width="1200" height="200" fill="#E4002B"/>
+              <circle cx="600" cy="300" r="120" fill="#0033A0"/>
+              <path d="M600 200 l23.5 72.3 h76 l-61.5 44.7 23.5 72.3-61.5-44.7-61.5 44.7 23.5-72.3-61.5-44.7 h76 z" fill="#FED100"/>
+            </svg>
+            <span>Ethiopian Birr (ETB)</span>
+          </div>
+        </div>
+
+        <!-- Binance ID -->
+        <div class="form-group">
+          <label class="label">Binance ID <span class="asterisk">*</span></label>
+          <input type="text" class="input-field">
+          <div class="field-hint">Required: Must be registered before March 2025</div>
+        </div>
+
+        <!-- Referral Code -->
+        <div class="form-group">
+          <label class="label">Referral Code (Optional)</label>
+          <input type="text" class="input-field">
+          <div class="field-hint">Have a referral code? Enter it when registering on AllP2P.</div>
+        </div>
+
+        <!-- Continue Button -->
+        <button type="button" class="btn-submit btn-step2">
+          Continue to Step 2 &rarr;
+        </button>
+
+        <!-- Note Card -->
+        <div class="info-card">
+          <span class="highlight-note">Note:</span> You must have a verified Binance account registered before March 2025 to join this platform.
+        </div>
+      </form>
+    </div>
+
+  </div>
+
+  <script>
+    const getStartedBtn = document.getElementById('getStartedBtn');
+    const landingView = document.getElementById('landingView');
+    const registerView = document.getElementById('registerView');
+
+    getStartedBtn.addEventListener('click', () => {
+      landingView.classList.add('hidden');
+      registerView.classList.remove('hidden');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  </script>
 </body>
 </html>
