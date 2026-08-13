@@ -22,6 +22,11 @@
             padding: 20px 10px;
         }
 
+        /* Hide the toggle radio inputs */
+        input[name="view-toggle"] {
+            display: none;
+        }
+
         .container {
             width: 100%;
             max-width: 420px;
@@ -37,8 +42,27 @@
             margin-bottom: auto;
         }
 
-        .hidden {
-            display: none !important;
+        /* View Switching Logic via Pure CSS */
+        #landing-view, #register-view {
+            width: 100%;
+        }
+
+        #view-landing:checked ~ .container #landing-view {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        #view-landing:checked ~ .container #register-view {
+            display: none;
+        }
+
+        #view-register:checked ~ .container #landing-view {
+            display: none;
+        }
+
+        #view-register:checked ~ .container #register-view {
+            display: block;
         }
 
         /* --- Landing View Styles --- */
@@ -124,6 +148,7 @@
             gap: 8px;
             transition: background-color 0.2s;
             margin-bottom: 12px;
+            text-decoration: none;
         }
 
         .btn-get-started:hover {
@@ -145,6 +170,7 @@
         .country-info {
             display: flex;
             align-items: center;
+            justify-content: center;
             gap: 8px;
             font-size: 13px;
             font-weight: 500;
@@ -233,10 +259,6 @@
             border-color: #fcd535;
         }
 
-        .form-input::placeholder {
-            color: #5e667d;
-        }
-
         .form-input-highlight {
             border-color: #fcd535;
         }
@@ -301,145 +323,145 @@
 </head>
 <body>
 
-    <!-- Landing Screen -->
-    <div id="landing-view" class="container">
-        <!-- Secure -->
-        <div class="feature-title">Secure</div>
-        <div class="feature-desc">Protected trades with escrow</div>
+    <!-- Hidden Radios to control pages without JS -->
+    <input type="radio" id="view-landing" name="view-toggle" checked>
+    <input type="radio" id="view-register" name="view-toggle">
 
-        <!-- Community -->
-        <div class="icon-box">
-            <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 96 960 960" width="24" fill="currentColor"><path d="M400 576q-66 0-113-47t-47-113q0-66 47-113 t113-47q66 0 113 47 t47 113q0 66-47 113t-113 47ZM80 896v-112q0-33 17-60.5t47-41.5q55-26 116-40t140-14q79 0 140 14t116 40q30 14 47 41.5t17 60.5v112H80Zm520-320q33 0 56.5-23.5T680 496q0-33-23.5-56.5T600 416q-33 0-56.5 23.5T520 496q0 33 23.5 56.5T600 576ZM240 836h480v-56q0-9-4-17.5t-11-14.5q-47-23-101.5-33.5T480 704q-58 0-112.5 10.5T266 748q-7 6-11 14.5t-4 17.5v56Zm240-340Zm0 396Z"/></svg>
-        </div>
-        <div class="feature-title">Community</div>
-        <div class="feature-desc">Verified members only</div>
+    <div class="container">
+        
+        <!-- PAGE 1: LANDING VIEW -->
+        <div id="landing-view">
+            <!-- Secure -->
+            <div class="feature-title">Secure</div>
+            <div class="feature-desc">Protected trades with escrow</div>
 
-        <!-- Fast -->
-        <div class="icon-box">
-            <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 96 960 960" width="24" fill="currentColor"><path d="m144 792-24-24 336-336 192 192 248-248-56-56-192 192-192-192-360 360Z"/></svg>
-        </div>
-        <div class="feature-title">Fast</div>
-        <div class="feature-desc">Instant peer-to-peer trades</div>
-
-        <!-- Membership Card -->
-        <div class="membership-card">
-            <div class="membership-header">
-                <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
-                Membership Access
+            <!-- Community -->
+            <div class="icon-box">
+                <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 96 960 960" width="24" fill="currentColor"><path d="M400 576q-66 0-113-47t-47-113q0-66 47-113 t113-47q66 0 113 47 t47 113q0 66-47 113t-113 47ZM80 896v-112q0-33 17-60.5t47-41.5q55-26 116-40t140-14q79 0 140 14t116 40q30 14 47 41.5t17 60.5v112H80Zm520-320q33 0 56.5-23.5T680 496q0-33-23.5-56.5T600 416q-33 0-56.5 23.5T520 496q0 33 23.5 56.5T600 576ZM240 836h480v-56q0-9-4-17.5t-11-14.5q-47-23-101.5-33.5T480 704q-58 0-112.5 10.5T266 748q-7 6-11 14.5t-4 17.5v56Zm240-340Zm0 396Z"/></svg>
             </div>
-            <div class="membership-body">
-                Exclusive to closed community members with verified <span>Binance</span> accounts registered before <span class="highlight">March 2025</span>.
+            <div class="feature-title">Community</div>
+            <div class="feature-desc">Verified members only</div>
+
+            <!-- Fast -->
+            <div class="icon-box">
+                <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 96 960 960" width="24" fill="currentColor"><path d="m144 792-24-24 336-336 192 192 248-248-56-56-192 192-192-192-360 360Z"/></svg>
             </div>
-        </div>
+            <div class="feature-title">Fast</div>
+            <div class="feature-desc">Instant peer-to-peer trades</div>
 
-        <!-- Button to open form -->
-        <button class="btn-get-started" onclick="showRegister()">
-            Get Started 
-            <svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 96 960 960" width="20" fill="currentColor"><path d="m648 768-48-47 121-121H168v-68h553L600 411l48-47 204 204-204 204Z"/></svg>
-        </button>
-        <div class="footer-note">Complete registration to start trading</div>
-
-        <div class="powered-by">Powered by Blockchain Liberty Foundation</div>
-        <div class="country-info">
-            <img src="https://flagcdn.com/w40/et.png" alt="Ethiopia Flag">
-            Ethiopia
-        </div>
-    </div>
-
-    <!-- Registration Screen (Hidden initially) -->
-    <div id="register-view" class="container register-container hidden">
-        <div class="register-header-row">
-            <h1 class="register-title">Register</h1>
-            <span class="step-indicator">Step 1 of 2</span>
-        </div>
-        <div class="register-subtitle">Complete your basic information</div>
-        <div class="progress-bar-container">
-            <div class="progress-bar-fill"></div>
-        </div>
-
-        <form onsubmit="event.preventDefault();">
-            <!-- Nickname -->
-            <div class="form-group">
-                <label class="form-label">Nickname <span class="required-star">*</span></label>
-                <input type="text" class="form-input form-input-highlight">
-            </div>
-
-            <!-- Full Name -->
-            <div class="form-group">
-                <label class="form-label">Full Name <span class="required-star">*</span></label>
-                <input type="text" class="form-input">
-                <div class="helper-text">
-                    ⚠️ Enter your name <strong>exactly as it appears on your National ID</strong>. This will be locked after verification and cannot be changed.
+            <!-- Membership Card -->
+            <div class="membership-card">
+                <div class="membership-header">
+                    <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+                    Membership Access
+                </div>
+                <div class="membership-body">
+                    Exclusive to closed community members with verified <span>Binance</span> accounts registered before <span class="highlight">March 2025</span>.
                 </div>
             </div>
 
-            <!-- Email -->
-            <div class="form-group">
-                <label class="form-label">Email <span class="required-star">*</span></label>
-                <input type="email" class="form-input">
-            </div>
-
-            <!-- Country -->
-            <div class="form-group">
-                <label class="form-label">Country <span class="required-star">*</span></label>
-                <div class="form-input input-with-flag">
-                    <img src="https://flagcdn.com/w40/et.png" alt="Ethiopia Flag">
-                    Ethiopia
-                </div>
-            </div>
-
-            <!-- Phone Number -->
-            <div class="form-group">
-                <label class="form-label">Phone Number <span class="required-star">*</span></label>
-                <div class="phone-group">
-                    <div class="phone-prefix">+251</div>
-                    <input type="tel" class="form-input phone-input" placeholder="912345678">
-                </div>
-                <div class="helper-text">Enter phone number without country code</div>
-            </div>
-
-            <!-- Currency -->
-            <div class="form-group">
-                <label class="form-label">Currency <span class="required-star">*</span></label>
-                <div class="form-input input-with-flag">
-                    <img src="https://flagcdn.com/w40/et.png" alt="Ethiopia Flag">
-                    Ethiopian Birr (ETB)
-                </div>
-            </div>
-
-            <!-- Binance ID -->
-            <div class="form-group">
-                <label class="form-label">Binance ID <span class="required-star">*</span></label>
-                <input type="text" class="form-input">
-                <div class="helper-text">Required: Must be registered before March 2025</div>
-            </div>
-
-            <!-- Referral Code -->
-            <div class="form-group">
-                <label class="form-label">Referral Code <span style="color: #848e9c; font-weight: normal;">(Optional)</span></label>
-                <input type="text" class="form-input">
-                <div class="helper-text">Have a referral code? Enter it when registering on AIIP2P.</div>
-            </div>
-
-            <!-- Continue Button -->
-            <button type="button" class="btn-get-started" style="margin-top: 12px; margin-bottom: 0;">
-                Continue to Step 2 
+            <!-- Get Started Label Button (Triggers CSS View Change) -->
+            <label for="view-register" class="btn-get-started">
+                Get Started 
                 <svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 96 960 960" width="20" fill="currentColor"><path d="m648 768-48-47 121-121H168v-68h553L600 411l48-47 204 204-204 204Z"/></svg>
-            </button>
-        </form>
+            </label>
+            <div class="footer-note">Complete registration to start trading</div>
 
-        <div class="note-card">
-            <span>Note:</span> You must have a verified Binance account registered before <span>March 2025</span> to join this platform.
+            <div class="powered-by">Powered by Blockchain Liberty Foundation</div>
+            <div class="country-info">
+                <img src="https://flagcdn.com/w40/et.png" alt="Ethiopia Flag">
+                Ethiopia
+            </div>
         </div>
+
+        <!-- PAGE 2: REGISTRATION FORM VIEW -->
+        <div id="register-view" class="register-container">
+            <div class="register-header-row">
+                <h1 class="register-title">Register</h1>
+                <span class="step-indicator">Step 1 of 2</span>
+            </div>
+            <div class="register-subtitle">Complete your basic information</div>
+            <div class="progress-bar-container">
+                <div class="progress-bar-fill"></div>
+            </div>
+
+            <form onsubmit="event.preventDefault();">
+                <!-- Nickname -->
+                <div class="form-group">
+                    <label class="form-label">Nickname <span class="required-star">*</span></label>
+                    <input type="text" class="form-input form-input-highlight">
+                </div>
+
+                <!-- Full Name -->
+                <div class="form-group">
+                    <label class="form-label">Full Name <span class="required-star">*</span></label>
+                    <input type="text" class="form-input">
+                    <div class="helper-text">
+                        ⚠️ Enter your name <strong>exactly as it appears on your National ID</strong>. This will be locked after verification and cannot be changed.
+                    </div>
+                </div>
+
+                <!-- Email -->
+                <div class="form-group">
+                    <label class="form-label">Email <span class="required-star">*</span></label>
+                    <input type="email" class="form-input">
+                </div>
+
+                <!-- Country -->
+                <div class="form-group">
+                    <label class="form-label">Country <span class="required-star">*</span></label>
+                    <div class="form-input input-with-flag">
+                        <img src="https://flagcdn.com/w40/et.png" alt="Ethiopia Flag">
+                        Ethiopia
+                    </div>
+                </div>
+
+                <!-- Phone Number -->
+                <div class="form-group">
+                    <label class="form-label">Phone Number <span class="required-star">*</span></label>
+                    <div class="phone-group">
+                        <div class="phone-prefix">+251</div>
+                        <input type="tel" class="form-input phone-input" placeholder="912345678">
+                    </div>
+                    <div class="helper-text">Enter phone number without country code</div>
+                </div>
+
+                <!-- Currency -->
+                <div class="form-group">
+                    <label class="form-label">Currency <span class="required-star">*</span></label>
+                    <div class="form-input input-with-flag">
+                        <img src="https://flagcdn.com/w40/et.png" alt="Ethiopia Flag">
+                        Ethiopian Birr (ETB)
+                    </div>
+                </div>
+
+                <!-- Binance ID -->
+                <div class="form-group">
+                    <label class="form-label">Binance ID <span class="required-star">*</span></label>
+                    <input type="text" class="form-input">
+                    <div class="helper-text">Required: Must be registered before March 2025</div>
+                </div>
+
+                <!-- Referral Code -->
+                <div class="form-group">
+                    <label class="form-label">Referral Code <span style="color: #848e9c; font-weight: normal;">(Optional)</span></label>
+                    <input type="text" class="form-input">
+                    <div class="helper-text">Have a referral code? Enter it when registering on AIIP2P.</div>
+                </div>
+
+                <!-- Continue Button -->
+                <button type="button" class="btn-get-started" style="margin-top: 12px; margin-bottom: 0;">
+                    Continue to Step 2 
+                    <svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 96 960 960" width="20" fill="currentColor"><path d="m648 768-48-47 121-121H168v-68h553L600 411l48-47 204 204-204 204Z"/></svg>
+                </button>
+            </form>
+
+            <div class="note-card">
+                <span>Note:</span> You must have a verified Binance account registered before <span>March 2025</span> to join this platform.
+            </div>
+        </div>
+
     </div>
 
-    <!-- JavaScript to toggle views -->
-    <script>
-        function showRegister() {
-            document.getElementById('landing-view').classList.add('hidden');
-            document.getElementById('register-view').classList.remove('hidden');
-            window.scrollTo(0, 0);
-        }
-    </script>
 </body>
 </html>
