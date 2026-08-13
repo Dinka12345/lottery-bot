@@ -34,20 +34,24 @@
         .header {
             width: 100%;
             display: flex;
-            justify-content: space-between;
+            justify-content: flex-end;
             align-items: center;
             margin-bottom: 30px;
             color: #ffffff;
-        }
-
-        .header .close, .header .menu {
-            font-size: 20px;
-            cursor: pointer;
+            position: relative;
         }
 
         .header .title {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
             font-size: 18px;
             font-weight: 500;
+        }
+
+        .header .menu {
+            font-size: 20px;
+            cursor: pointer;
         }
 
         .feature-item {
@@ -195,7 +199,6 @@
     <div class="container">
         <!-- Top Navigation -->
         <div class="header">
-            <div class="close" style="visibility: hidden;">&#10005;</div>
             <div class="title">AllP2PBot</div>
             <div class="menu">&#8942;</div>
         </div>
