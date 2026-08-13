@@ -12,35 +12,41 @@
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
     }
 
+    html {
+      scroll-behavior: smooth;
+    }
+
     body {
       background-color: #121418;
       color: #ffffff;
       display: flex;
       justify-content: center;
       align-items: center;
-      min-height: 100vh;
-      padding: 20px;
+      padding: 20px 0;
     }
 
     .container {
       width: 100%;
       max-width: 420px;
+      padding: 0 10px;
+    }
+
+    .section {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 20px 0;
     }
 
     /* ----------------------------------------------------
-       VIEW 1: LANDING PAGE
+       SECTION 1: LANDING VIEW
     ---------------------------------------------------- */
-    #landingView {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-    }
-
     .feature-item {
       display: flex;
       flex-direction: column;
       align-items: center;
+      text-align: center;
       margin-bottom: 24px;
     }
 
@@ -152,6 +158,7 @@
       justify-content: center;
       align-items: center;
       gap: 8px;
+      text-decoration: none;
       transition: background-color 0.2s;
     }
 
@@ -163,6 +170,7 @@
       font-size: 12px;
       color: #848e9c;
       margin-top: 12px;
+      text-align: center;
     }
 
     .footer {
@@ -195,14 +203,8 @@
     }
 
     /* ----------------------------------------------------
-       VIEW 2: REGISTER FORM
+       SECTION 2: REGISTER FORM
     ---------------------------------------------------- */
-    #registerView {
-      display: none; /* Hidden by default */
-      flex-direction: column;
-      width: 100%;
-    }
-
     .header-group {
       display: flex;
       justify-content: space-between;
@@ -268,11 +270,6 @@
       color: #ffffff;
       font-size: 14px;
       outline: none;
-      transition: border-color 0.2s;
-    }
-
-    .input-field:focus {
-      border-color: #f0b90b;
     }
 
     .input-field.active {
@@ -360,8 +357,8 @@
 
   <div class="container">
 
-    <!-- SCREEN 1: LANDING -->
-    <div id="landingView">
+    <!-- PAGE 1: LANDING SECTION -->
+    <div class="section" id="home">
       
       <!-- Secure -->
       <div class="feature-item">
@@ -416,14 +413,14 @@
           </p>
         </div>
 
-        <!-- Direct onclick action -->
-        <button type="button" class="btn-submit" onclick="goToRegister()">
+        <!-- HTML ANCHOR LINK (No JS needed) -->
+        <a href="#register" class="btn-submit">
           Get Started 
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
             <line x1="5" y1="12" x2="19" y2="12"></line>
             <polyline points="12 5 19 12 12 19"></polyline>
           </svg>
-        </button>
+        </a>
 
         <div class="card-footer-text">Complete registration to start trading</div>
       </div>
@@ -445,8 +442,8 @@
 
     </div>
 
-    <!-- SCREEN 2: REGISTRATION FORM -->
-    <div id="registerView">
+    <!-- PAGE 2: REGISTER SECTION -->
+    <div class="section" id="register">
       <div class="header-group">
         <h1 class="main-title">Register</h1>
         <span class="step-indicator">Step 1 of 2</span>
@@ -535,9 +532,9 @@
         </div>
 
         <!-- Continue Button -->
-        <button type="button" class="btn-submit btn-step2">
+        <a href="#home" class="btn-submit btn-step2">
           Continue to Step 2 &rarr;
-        </button>
+        </a>
 
         <!-- Note Card -->
         <div class="info-card">
@@ -548,12 +545,5 @@
 
   </div>
 
-  <script>
-    function goToRegister() {
-      document.getElementById('landingView').style.display = 'none';
-      document.getElementById('registerView').style.display = 'flex';
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-  </script>
 </body>
 </html>
